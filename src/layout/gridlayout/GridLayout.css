@@ -1,0 +1,36 @@
+:root {
+  --cell-size: 60px;
+}
+
+/* Tablette */
+@media screen and (max-width: 768px) {
+  :root { --cell-size: 40px; }
+}
+
+/* Mobile */
+@media screen and (max-width: 428px) {
+  :root { --cell-size: 30px; }
+}
+
+body { margin: 0; }
+
+.grid {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, var(--cell-size));
+  grid-auto-rows: var(--cell-size);
+}
+
+.cell {
+  border: 1px solid var(--grid-color);
+  transition: background 1s ease-out;
+  z-index: 9999;
+}
+
+.cell:hover {
+  background: var(--grid-hover);
+  transition: background 0.00001s;
+}

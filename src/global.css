@@ -1,0 +1,81 @@
+:root{
+
+  --default-grid: 60px;
+
+  --bg-color: #121212;
+
+  --grid-color: #ffffff12;
+  --grid-hover: #22D3EE12;
+
+  --primary-color: #22D3EE;
+
+  --text-primary: #ffffff;
+  --text-secondary: #ffffffe5;
+  --text-muted: #ffffff71;
+
+}
+
+@font-face {
+    font-family: "title";
+    src: url("/fonts/wigolomo/wigolamono-bold.otf");
+    font-weight: 100;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: "semi-title";
+    src: url("/fonts/wigolomo/wigolamono-medium.otf") ;
+    font-weight: 100;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "wigolo-regular";
+    src: url("/public/fonts/wigolomo/wigolamono-light.otf");
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: "geist-regular";
+    src: url("/fonts/geist/Geist-Regular-BF6569491e3eff1.otf") format("opentype");
+    font-weight: 100;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: "geist-light";
+    src: url("/fonts/geist/Geist-Light-BF6569491dc9c01.otf") format("opentype");
+    font-weight: 100;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "geist-medium";
+    src: url("/public/fonts/geist/Geist-Medium-BF6569491e1c281.otf") ;
+    font-weight: 100;
+    font-style: normal;
+  }
+  
+body{
+    overflow-x: hidden;
+    background-color: var(--bg-color);
+}
+
+
+.container{
+    margin-left: var(--default-grid);
+    
+}
+
+.cursor-pointer{
+  cursor: pointer;
+}
+
+.page-wrapper {
+  position: relative;  
+  width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.page-content {
+  position: relative;
+}

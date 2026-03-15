@@ -1,0 +1,53 @@
+.header-row {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+
+  font-family: geist-light;
+  font-weight: 100;
+}
+
+.header-logo {
+  overflow: hidden;
+}
+
+.header-logo img {
+  height: calc(0.55 * var(--cell-size));
+  width: auto;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.nav-item {
+  font-size: 10px;
+  font-weight: bold;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: visible;
+}
+
+.contact-item {
+  font-size: 12px;
+  color: var(--text-primary);
+  font-family: geist-regular;
+  white-space: nowrap;
+  overflow: visible;
+}
+
+.contact-icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 6px;
+  position: relative;
+  top: -1px;
+}
+
+@media screen and (max-width: 768px) {
+  .contact-item { display: none; }
+  .nav-item     { font-size: 9px; }
+}
+
+@media screen and (max-width: 428px) {
+  .nav-item { display: none; }
+}
