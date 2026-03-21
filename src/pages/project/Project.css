@@ -5,12 +5,10 @@
   overflow: hidden;
 }
 
-
-/* ── Typographie ── */
 .semi-title {
   font-family: wigolo-regular;
   color: var(--text-primary);
-  font-size: clamp(18px, 2vw, 30px); /* responsive */
+  font-size: clamp(16px, 2.35vw, 24px);
   font-weight: 1;
   margin: 0;
   white-space: nowrap;
@@ -24,7 +22,7 @@
 
 .muted-titre-semi {
   color: var(--text-muted);
-  font-size: 14px;
+  font-size: clamp(12px, 2.8vw, 14px);
   font-family: geist-regular;
   font-weight: 100;
   margin: 0 0 8px 0;
@@ -32,16 +30,68 @@
 
 .list-services {
   list-style: none;
-  padding: 0; margin: 0;
+  padding: 0;
+  margin: 0;
   color: var(--text-secondary);
-  font-family: "geist-light";
-  font-size: 14px;
+  font-family: geist-light;
+  font-size: clamp(10px, 1.8vw, 14px);
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
-/* ── Carousel ── */
+.card-project-title {
+  font-family: title;
+  font-weight: 1;
+  color: var(--primary-color);
+  font-size: clamp(28px, 8vw, 120px);
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+  display: block;
+  overflow: hidden;
+  z-index: 900;
+}
+
+.card-project-title span {
+  display: block;
+  line-height: 1;
+}
+
+.info-work {
+  color: var(--text-secondary);
+  font-family: geist-light;
+  font-size: clamp(10px, 1.8vw, 14px);
+  white-space: pre-line;
+}
+
+.btn {
+  position: relative;
+  padding: clamp(8px, 0.8vw, 15px) clamp(10px, 1vw, 18px);
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+  border: none;
+  border-radius: 5px;
+  font-family: geist-medium;
+  font-size: clamp(10px, 1.8vw, 14px);
+  cursor: pointer;
+  overflow: hidden;
+  z-index: 999;
+  white-space: nowrap;
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 0;
+  background-color: var(--text-primary);
+  transition: height 0.2s ease-in-out;
+  z-index: -1;
+}
+
+.btn:hover::after { height: 100%; }
+
 .list-projects {
   display: flex;
   gap: 15px;
@@ -55,56 +105,65 @@
   100% { transform: translateX(0%); }
 }
 
-/* ── Infos travail ── */
-.info-work {
-  color: var(--text-secondary);
-  font-family: geist-light;
-  font-size: 14px;
+@media screen and (min-width: 821px) and (max-width: 1024px) {
+  .info-work { font-size: clamp(12px, 2vw, 18px); }
+  .btn       { padding: 20px; }
 }
 
-/* ── Bouton ── */
-.btn {
+@media screen and (max-width: 375px) {
+  .list-services    { font-size: 10px; }
+  .muted-titre-semi { font-size: 10px; }
+  .btn              { padding: 8px; font-size: 10px; }
+  .info-work        { font-size: 10px; }
+}
+
+@media screen and (max-height: 700px) {
+  .list-services    { font-size: 10px; }
+  .muted-titre-semi { font-size: 10px; }
+  .btn              { padding: 8px; font-size: 10px; }
+  .info-work        { font-size: 10px; }
+  .semi-title       { font-size: clamp(10px, 2.35vw, 16px); }
+  .card-project-title { font-size: clamp(20px, 8vw, 50px); }
+}
+
+.project-page {
   position: relative;
-  padding: 15px;
-  background-color: var(--primary-color);
-  color: var(--bg-color);
-  border: none;
-  border-radius: 5px;
-  font-family: geist-medium;
-  font-size: 14px;
-  cursor: pointer;
+  width: 100vw;
+  height: 100dvh;
   overflow: hidden;
-  z-index: 1;
 }
 
-.btn::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0;
-  width: 100%; height: 0;
-  background-color: var(--text-primary);
-  transition: height 0.2s ease-in-out;
-  z-index: -1;
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
-.btn:hover::after { height: 100%; }
-
-/* ── Responsive ── */
-@media screen and (max-width: 768px) {
-    .semi-title { white-space: normal; }
-        
-
+@keyframes cardReveal {
+  from { opacity: 0.2; filter: blur(14px); }
+  to   { opacity: 1;   filter: blur(0px);  }
 }
 
-@media screen and (max-width: 428px) {
-    .semi-title { font-size: 18px; }
-    .card-project-title{
-        font-size: 56px;
-    }
-    .muted-titre-semi{
-        font-size: 12px;
-    }
-    .list-services{
-        font-size: 12px;
-    }
+
+.list-projects-wrapper {
+  opacity: 0;
+  animation: carouselReveal  1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards ;
+}
+
+@keyframes carouselReveal {
+  0%   {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+    transform: scale(0.97);
+    filter: blur(8px);
+  }
+  60%  {
+    opacity: 1;
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 1;
+    clip-path: inset(0 0% 0 0);
+    transform: scale(1);
+    filter: blur(0px);
+  }
 }

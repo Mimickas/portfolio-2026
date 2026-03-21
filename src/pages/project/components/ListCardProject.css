@@ -1,6 +1,6 @@
 .card-project {
-  width: 650px;
-  height: 400px;
+  width:  clamp(200px, 70vw, 650px);
+  height: clamp(150px, 35dvh, 380px);
   flex-shrink: 0;
   overflow: hidden;
   background-color: var(--grid-hover);
@@ -8,23 +8,18 @@
   cursor: pointer;
   z-index: 1;
   border-radius: 5px;
+  
 }
 
-.card-project-image {
-  width: 100%;
-  height: 100%;
-}
+.card-project-image { width: 100%; height: 100%; }
 
 .card-project-image img {
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease-in-out;
 }
 
-.card-project-image img:hover {
-  transform: scale(1.02);
-}
+.card-project-image img:hover { transform: scale(1.02); }
 
 .card-unfocused {
   filter: blur(5px);
@@ -33,35 +28,56 @@
   z-index: 0;
 }
 
-.card-project-title {
-  font-family: title;
-  font-weight: 1;
-  color: var(--primary-color);
-  font-size: 96px;
-  z-index: 900;
-  margin: 0;
-  padding: 0;
-  line-height: 1;
-  display: block;
-  overflow: hidden;
-}
-
-.card-project-title span {
-  display: block;
-  line-height: 1;
-}
-
-@media screen and (max-width: 768px) {
-  
-
-        
-
-}
-
-@media screen and (max-width: 428px) {
+@media screen and (max-height: 800px) {
   .card-project {
-    width: 400px;
-    height: 240px;
-  
+    width:  clamp(150px, 60vw, 300px);
+    height: clamp(20px,  20dvh, 180px);
   }
 }
+
+/* Mobile ≤375px */
+@media screen and (max-width: 375px) {
+  .card-project {
+    width:  clamp(120px, 50vw, 260px);
+    height: clamp(65px,  20dvh, 140px);
+  }
+}
+/* Mobile ≤430px */
+@media screen and (max-width: 430px) {
+  .card-project {
+    width:  clamp(150px, 70vw, 400px);
+    height: clamp(80px,  28dvh, 200px);
+  }
+}
+
+/* Tablet 431→768px */
+@media screen and (min-width: 431px) and (max-width: 768px) {
+  .card-project {
+    width:  clamp(300px, 55vw, 600px);
+    height: clamp(93px,  28dvh, 220px);
+  }
+}
+
+/* 769→819px */
+@media screen and (min-width: 769px) and (max-width: 819px) {
+  .card-project {
+    width:  clamp(300px, 55vw, 600px);
+    height: clamp(150px, 35dvh, 320px);
+  }
+}
+
+/* 820→1024px */
+@media screen and (min-width: 820px) and (max-width: 1024px) {
+  .card-project {
+    width:  clamp(400px, 55vw, 800px);
+    height: clamp(200px, 35dvh, 380px);
+  }
+}
+
+@media screen and (max-height: 800px) {
+  .card-project {
+    width:  clamp(200px, 60vw, 320px);
+    height: clamp(22px,  28dvh, 225px);
+  }
+}
+

@@ -1,30 +1,56 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import "./GridLayout.css"
 
-function GridLayout() {
- 
-  const defaultCellSize = 60
-
-  const [grid, setGrid] = useState({ rows: 0, cols: 0 })
+export default function GridLayout() {
+  const [grid, setGrid]         = useState({ rows: 0, cols: 0 })
+  const [hoveredIndex, setHoveredIndex] = useState(null)
+  const cellSizeRef = useRef(60)
 
   useEffect(() => {
     function calculateGrid() {
-
       const rootStyles = getComputedStyle(document.documentElement)
-      const cellSize = parseInt(rootStyles.getPropertyValue("--cell-size")) || defaultCellSize
+      const cols       = parseInt(rootStyles.getPropertyValue("--grid-cols")) || 31
+      const cellSize   = window.innerWidth / cols
+      cellSizeRef.current = cellSize
 
-      const cols = Math.ceil(window.innerWidth / cellSize)
-      const rows = Math.ceil(window.innerHeight / cellSize)
+      const viewH = window.visualViewport?.height ?? window.innerHeight
+      const rows  = Math.ceil(viewH / cellSize)
+
+      document.documentElement.style.setProperty("--cell-size", `${cellSize}px`)
+      document.documentElement.style.setProperty("--grid-rows", `${rows}`)
+
       setGrid({ rows, cols })
     }
 
     calculateGrid()
     window.addEventListener("resize", calculateGrid)
-    return () => window.removeEventListener("resize", calculateGrid)
+    window.visualViewport?.addEventListener("resize", calculateGrid)
+
+    return () => {
+      window.removeEventListener("resize", calculateGrid)
+      window.visualViewport?.removeEventListener("resize", calculateGrid)
+    }
   }, [])
 
-  const totalCells = grid.rows * grid.cols
-  const cells = Array.from({ length: totalCells })
+  // Détecte la cellule via mousemove sur le document
+  useEffect(() => {
+    const onMove = (e) => {
+      const cell = cellSizeRef.current
+      const col  = Math.floor(e.clientX / cell)
+      const row  = Math.floor(e.clientY / cell)
+      setHoveredIndex(row * grid.cols + col)
+    }
+    const onLeave = () => setHoveredIndex(null)
+
+    document.addEventListener("mousemove", onMove)
+    document.addEventListener("mouseleave", onLeave)
+    return () => {
+      document.removeEventListener("mousemove", onMove)
+      document.removeEventListener("mouseleave", onLeave)
+    }
+  }, [grid.cols])
+
+  const cells = Array.from({ length: grid.rows * grid.cols })
 
   return (
     <div
@@ -35,10 +61,16 @@ function GridLayout() {
       }}
     >
       {cells.map((_, i) => (
-        <div key={i} className="cell" />
+        <div
+          key={i}
+          className="cell"
+          style={
+            hoveredIndex === i
+              ? { background: "var(--grid-hover)", transition: "background 0.00001s" }
+              : undefined
+          }
+        />
       ))}
     </div>
   )
 }
-
-export default GridLayout

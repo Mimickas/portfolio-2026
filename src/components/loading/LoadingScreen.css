@@ -1,0 +1,56 @@
+.loading-background {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100dvh;
+  background-color: var(--bg-loading);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-parts-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+/* Chaque partie positionnée à ses coordonnées exactes dans le logo */
+.logo-part {
+  position: absolute;
+  opacity: 0;
+}
+
+.logo-part img {
+  display: block;
+  object-fit: contain;
+}
+
+/* Partie 1 — blanc haut */
+.logo-part:nth-child(1) {
+  top:    0px;
+  left:   0px;
+  width:  61px;
+  height: 55px;
+}
+
+/* Partie 2 — cercle */
+.logo-part:nth-child(2) {
+  top:    4.5px;
+  left:   4.55px;
+  width:  100px;
+  height: 100px;
+}
+
+
+.logo-part:nth-child(3) {
+  top:    57.3px;
+  left:   54.15px;
+  width:  61px;
+  height: 53px;
+}
+
+.logo-part img {
+  width:  100%;
+  height: 100%;
+}

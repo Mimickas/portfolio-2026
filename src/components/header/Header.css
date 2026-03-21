@@ -1,18 +1,23 @@
 .header-row {
-  position: relative;
-  z-index: 10;
+  position: fixed;
+  top: 0; left: 0;
   width: 100%;
-
+  height: var(--cell-size);
+  z-index: 10;
   font-family: geist-light;
   font-weight: 100;
+  pointer-events: none;
 }
 
-.header-logo {
-  overflow: hidden;
+.header-logo,
+.nav-item,
+.contact-item,
+.burger-btn {
+  pointer-events: auto;
 }
 
 .header-logo img {
-  height: calc(0.55 * var(--cell-size));
+  height: calc(0.75 * var(--cell-size));
   width: auto;
   position: absolute;
   top: 50%;
@@ -20,7 +25,7 @@
 }
 
 .nav-item {
-  font-size: 10px;
+  font-size: clamp(9px, 0.75vw, 11px);
   font-weight: bold;
   color: var(--text-secondary);
   white-space: nowrap;
@@ -28,11 +33,13 @@
 }
 
 .contact-item {
-  font-size: 12px;
+  font-size: clamp(10px, 0.85vw, 12px);
   color: var(--text-primary);
   font-family: geist-regular;
   white-space: nowrap;
   overflow: visible;
+  display: flex;
+  align-items: center;
 }
 
 .contact-icon {
@@ -41,13 +48,252 @@
   margin-right: 6px;
   position: relative;
   top: -1px;
+  flex-shrink: 0;
 }
 
-@media screen and (max-width: 768px) {
-  .contact-item { display: none; }
-  .nav-item     { font-size: 9px; }
+/* ── Burger ── */
+.burger-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-primary);
+  font-size: clamp(20px, 2.5vw, 28px);
+  padding: 0;
+  pointer-events: auto;
+  transition: opacity 0.15s ease;
+}
+.burger-btn:hover { opacity: 0.6; }
+
+
+
+.icon-bars,
+.icon-times {
+  position: absolute;
+  top: 0; left: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-@media screen and (max-width: 428px) {
-  .nav-item { display: none; }
+.icon-bars  { opacity: 1; transform: rotate(0deg);   }
+.icon-times { opacity: 0; transform: rotate(-90deg); }
+
+.burger-icon-wrap.is-open .icon-bars  { opacity: 0; transform: rotate(90deg); }
+.burger-icon-wrap.is-open .icon-times { opacity: 1; transform: rotate(0deg);  }
+
+/* ── Menu overlay ── */
+.menu-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  right: 0; bottom: 0;
+  background: var(--bg-color);
+  z-index: 500;
+  pointer-events: none;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.menu-overlay--open {
+  clip-path: inset(0 0 0% 0);
+  pointer-events: auto;
+}
+
+/* ── Centre ── */
+.menu-center {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--cell-size) * 0.6);
+}
+
+/* ── Nav item ── */
+.menu-nav-item {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  pointer-events: auto;
+  padding: clamp(6px, 1vh, 12px) clamp(12px, 2vw, 24px);
+  font-family: wigolo-regular;
+  font-size: clamp(32px, 9vw, 80px);
+  font-weight: 1;
+  display: block;
+}
+
+
+.menu-nav-item::before {
+  content: "";
+  position: absolute;
+  top:    0;
+  left:   0;
+  width:  100%;
+  height: 0;
+  background: var(--text-primary);
+  transition: height 0.35s ease-in-out;
+  z-index: 0;
+}
+
+.menu-nav-item.is-hovered::before {
+  height: 100%;
+}
+
+
+.menu-nav-text {
+  display: block;
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+  color: var(--text-primary);
+  transition: color 0.35s ease-in-out;
+}
+
+
+.menu-nav-item:hover {
+  color: var(--bg-color);
+}
+
+
+.menu-copyright {
+  font-family: geist-light;
+  font-size: clamp(10px, 1.5vw, 13px);
+  color: var(--text-muted);
+  text-align: center;
+  padding-bottom: calc(var(--cell-size) * 0.5);
+}
+
+/* ── Contact bas ── */
+.menu-bottom-contact {
+  position: absolute;
+  bottom: var(--cell-size);
+  left:   var(--cell-size);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--cell-size) * 0.4);
+}
+
+.menu-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-family: geist-regular;
+  font-size: clamp(12px, 1.8vw, 16px);
+}
+
+/* ── Nav item wrapper ── */
+.nav-item-inner {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+/* ── Underscore — slide de gauche à droite au hover ── */
+.nav-underline {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--primary-color);
+  transition: width 0.25s ease;
+}
+
+.nav-item:hover .nav-underline,
+.nav-item--active .nav-underline {
+  width: 100%;
+}
+
+/* ── Couleur active + hover ── */
+.nav-item--active,
+.nav-item--active .cursor-pointer {
+  color: var(--primary-color);
+}
+
+.nav-item:hover .cursor-pointer {
+  color: var(--primary-color);
+}
+
+/* ── Mobile active ── */
+.menu-nav-item--active .menu-nav-text {
+  color: var(--primary-color);
+}
+
+/* ── Theme overlay ── */
+.theme-overlay {
+  position: fixed;
+  top:   0;
+  left:  0;
+  width: 100vw;
+  height: 100dvh;
+  z-index: 9998;
+  pointer-events: none;
+  clip-path: inset(100% 0 0 0);
+  transition: none;
+}
+
+.theme-overlay--active {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/* ── Theme switcher ── */
+.theme-switcher {
+  pointer-events: auto;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.theme-switcher-inner {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.theme-switcher-inner .cursor-pointer {
+  font-family: geist-light;
+  font-size: clamp(9px, 0.75vw, 11px);
+  font-weight: bold;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.theme-underline {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--text-primary);
+}
+
+.menu-theme-btn {
+  position: absolute;
+  bottom: var(--cell-size);
+  right:   var(--cell-size);
+  font-family: geist-regular;
+  font-size: clamp(11px, 1.8vw, 14px);
+  color: var(--text-muted);
+  cursor: pointer;
+  letter-spacing: 2px;
+  transition: color 0.2s ease;
+}
+
+.menu-theme-btn:hover {
+  color: var(--primary-color);
 }

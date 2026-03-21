@@ -1,0 +1,163 @@
+.about-page {
+  position: relative;
+  width: 100vw;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+/* ── Grand titre ── */
+.about-big-title {
+  font-family: title;
+  font-weight: 1;
+  color: var(--primary-color);
+  font-size: clamp(50px, 10vw, 120px);
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+
+/* ── Photo ── */
+.about-photo-wrapper {
+  width: calc(100vw - 18 * var(--cell-size) - var(--cell-size));
+  aspect-ratio: 3 / 4;
+  max-height: 65dvh;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.about-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  filter: grayscale(20%);
+  transition: filter 0.4s ease;
+}
+
+.about-photo:hover {
+    filter: grayscale(0%);
+}
+
+
+.about-bio {
+    max-width: clamp(280px, 36vw, 1000px);
+}
+
+.bio-line {
+    margin: 0;
+    opacity: 0;
+}
+
+.about-bio-main {
+    font-family: geist-medium;
+    font-size: clamp(20px, 3vw, 24px);
+    color: var(--text-primary);
+    font-weight: 100;
+}
+
+
+.about-bio-name {
+  font-family: geist-medium;
+  color: var(--text-primary);
+}
+
+.about-bio-alias {
+  font-family: wigolo-regular;
+  color: var(--primary-color);
+  font-size: 1.1em;
+}
+
+.about-bio-highlight {
+  color: var(--text-primary);
+  font-family: geist-regular;
+}
+
+.about-bio-accent {
+  color: var(--primary-color);
+}
+
+/* ── Specs bas droite ── */
+.about-spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  text-decoration: none;
+}
+
+.about-spec-label {
+  font-family: geist-light;
+  font-size: clamp(9px, 0.75vw, 11px);
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.about-spec-value {
+  font-family: geist-regular;
+  font-size: clamp(12px, 1vw, 15px);
+  color: var(--text-primary);
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.about-spec-item:hover .about-spec-value {
+  color: var(--primary-color);
+}
+
+/* ── Responsive tablet ── */
+@media screen and (max-width: 1440px) {
+  .about-photo-wrapper { width: calc(100vw - 16 * var(--cell-size) - var(--cell-size)); }
+}
+
+@media screen and (max-width: 1280px) {
+  .about-photo-wrapper { width: calc(100vw - 14 * var(--cell-size) - var(--cell-size)); }
+}
+
+@media screen and (max-width: 1024px) {
+  .about-big-title     { font-size: clamp(40px, 12vw, 90px); }
+  .about-photo-wrapper {
+    width: clamp(120px, 35vw, 280px);
+    height: clamp(150px, 40dvh, 380px);
+    max-height: none;
+    aspect-ratio: unset;
+  }
+  .about-bio { max-width: calc(100vw - 2 * var(--cell-size)); }
+}
+
+@media screen and (max-width: 768px) {
+  .about-big-title     { font-size: clamp(36px, 14vw, 70px); }
+  .about-photo-wrapper {
+    width: clamp(100px, 28vw, 200px);
+    height: clamp(120px, 32dvh, 280px);
+  }
+  .about-bio-main { font-size: clamp(11px, 3.5vw, 14px); }
+}
+
+@media screen and (max-width: 430px) {
+  .about-big-title     { font-size: clamp(30px, 16vw, 60px); }
+  .about-photo-wrapper {
+    width: clamp(80px, 24vw, 160px);
+    height: clamp(100px, 26dvh, 220px);
+  }
+}
+
+@media screen and (max-height: 700px) {
+  .about-big-title     { font-size: clamp(24px, 7vw, 50px); }
+  .about-photo-wrapper {
+    width: clamp(90px, 25vw, 200px);
+    height: clamp(100px, 30dvh, 240px);
+  }
+}
+
+@media screen and (max-height: 600px) {
+  .about-big-title     { font-size: clamp(18px, 5vw, 36px); }
+  .about-photo-wrapper {
+    width: clamp(70px, 20vw, 160px);
+    height: clamp(80px, 28dvh, 200px);
+  }
+  .about-bio-main      { font-size: 10px; }
+  .about-bio-secondary { font-size: 9px; }
+  .about-bio-specs     { font-size: 9px; }
+}
