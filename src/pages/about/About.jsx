@@ -189,7 +189,7 @@ export default function About() {
    
             <GridItem col={specBaseCol} row={isMobile || isTablet ? rows - 2 : rows - 1} corner={1}>
                 <button className="btn about-cv-btn">
-                <a href="/cv.pdf" download >
+                <a href="/cv/Tsiory - ETU003609.pdf" download >
                     <ScrambleHover
                         text="DOWNLOAD MY CV"
                         auto={autoSpec0}

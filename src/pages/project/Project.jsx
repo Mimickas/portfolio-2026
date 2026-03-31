@@ -7,7 +7,7 @@ import GridItem      from "../../components/GridItem"
 import { useBreakpoint } from "../../hooks/useBreakpoint"
 import { usePageReady }  from "../../hooks/usePageReady"
 import { useReveal } from "../../context/RevealContext"
-import { link } from "fontawesome"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 
 function useGrid() {
   const compute = () => {
@@ -114,7 +114,8 @@ const OFFSETS = {
 }
 
 export default function Project() {
-  const { revealed, setRevealed, direction, theme } = useReveal()
+  
+  const { revealed, setRevealed, direction, theme, resetReveal  } = useReveal()
 
   const [autoBottom,   setAutoBottom]   = useState(false)
   const [autoType,     setAutoType]     = useState(false)
@@ -131,7 +132,15 @@ export default function Project() {
   const [hoveredId,        setHoveredId]        = useState(null)
   const [showLoader,       setShowLoader]       = useState(true)
 
-  
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  const goTo = (path) => {
+    const dir = (path === "/" && location.pathname !== "/") ? "down" : "up"
+    resetReveal(dir)
+    navigate(path)
+  }
+    
   useEffect(() => {
     if (!revealed) {
       setShowLoader(true)
@@ -279,7 +288,7 @@ export default function Project() {
           </GridItem>
 
           <GridItem {...L.cta} row={rowCta} className="pinned-bottom page-enter-late">
-            <button className="btn">
+            <button className="btn" onClick={() => goTo("/contact")}>
               <ScrambleHover
                 text="TELL ME ABOUT YOUR WORK"
                 auto={autoCta} hover={false} scrambleSpeed={12} iterationsPerLetter={1}
