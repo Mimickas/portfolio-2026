@@ -90,8 +90,8 @@ const LAYOUT = {
 const PROJECTS = [
   { id: 1, image: "/img/Capture.PNG", title: "E-Kiraro",   type: "DESIGN & DEVELOPEMENT", base: "BASED IN MADAGASCAR",link:"https://www.behance.net/gallery/246200527/A-modern-e-commerce-experience-for-a-footwear-brand" },
   { id: 2, image: "/img/pm.png",       title: "P. M' LAY",  type: "BRANDING & DESIGN", base: "BASED IN MADAGASCAR",  link:"https://www.behance.net/gallery/246200087/PIZZA-MLay?" },
-  { id: 3, image: "/img/st.PNG",       title: "Project 3",  type: "WEB DESIGN",               base: "BASED IN MADAGASCAR",     link:"https://valentine-s-day-14.vercel.app/" },
-  { id: 4, image: "/img/e-jery.PNG",       title: "Project 4",  type: "E-COMMERCE",             base: "BASED IN MADAGASCAR",     link:"https://www.figma.com/proto/N6vdOXti6YIqdY4aMUhJSY/Untitled?t=zVZKO6HJUwF2cUYM-0&scaling=contain&content-scaling=fixed&page-id=0%3A1&node-id=76-113" },
+  { id: 3, image: "/img/st.PNG",       title: "Valentine's Day",  type: "WEB DESIGN",               base: "BASED IN MADAGASCAR",     link:"https://valentine-s-day-14.vercel.app/" },
+  { id: 4, image: "/img/e-jery.PNG",       title: "Portfolio 2025",  type: "WEB DESIGN",             base: "BASED IN MADAGASCAR",     link:"https://pikatsiory.infinityfree.me/" },
 ]
 
 const DESKTOP_ONLY = new Set([])
